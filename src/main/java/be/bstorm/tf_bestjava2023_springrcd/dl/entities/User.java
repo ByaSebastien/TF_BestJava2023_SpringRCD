@@ -68,12 +68,16 @@ public class User implements UserDetails {
         this.addresses = new HashSet<>();
     }
 
-    public User(String firstname, String lastname, String email, String password, UserGender gender) {
+    public User(String email, String password) {
         this();
-        this.firstname = firstname;
-        this.lastname = lastname;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String firstname, String lastname, String email, String password, UserGender gender) {
+        this(email, password);
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.gender = gender;
     }
 

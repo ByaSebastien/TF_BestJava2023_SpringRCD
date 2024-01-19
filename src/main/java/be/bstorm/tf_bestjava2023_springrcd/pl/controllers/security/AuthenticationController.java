@@ -4,6 +4,7 @@ import be.bstorm.tf_bestjava2023_springrcd.bll.services.UserService;
 import be.bstorm.tf_bestjava2023_springrcd.dl.entities.User;
 import be.bstorm.tf_bestjava2023_springrcd.pl.models.dtos.UserDTO;
 import be.bstorm.tf_bestjava2023_springrcd.pl.models.dtos.UserTokenDTO;
+import be.bstorm.tf_bestjava2023_springrcd.pl.models.forms.LoginForm;
 import be.bstorm.tf_bestjava2023_springrcd.pl.models.forms.RegisterForm;
 import be.bstorm.tf_bestjava2023_springrcd.pl.utils.JwtUtils;
 import jakarta.validation.Valid;
@@ -25,9 +26,18 @@ public class AuthenticationController {
             @Valid @RequestBody RegisterForm form
             ){
         User newUser = userService.register(form.toEntity());
-        UserDTO dto = UserDTO.fromEntity(newUser);
         String token = jwtUtils.generateToken(newUser);
-        UserTokenDTO result = new UserTokenDTO(dto,token);
-        return ResponseEntity.ok(result);
+        UserDTO dto = UserDTO.fromEntity(newUser);
+        return ResponseEntity.ok(new UserTokenDTO(dto,token));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserTokenDTO> login(
+        @RequestBody @Valid LoginForm form
+    ){
+        User newUser = userService.login(form.toEntity());
+        String token = jwtUtils.generateToken(newUser);
+        UserDTO dto = UserDTO.fromEntity(newUser);
+        return ResponseEntity.ok(new UserTokenDTO(dto,token));
     }
 }

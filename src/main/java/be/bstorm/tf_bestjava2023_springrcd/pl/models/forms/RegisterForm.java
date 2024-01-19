@@ -9,27 +9,27 @@ import jakarta.validation.constraints.Size;
 
 public record RegisterForm(
 
-        @NotNull
-        @NotBlank
-        @Size(max = 50)
+        @NotNull(message = "Le prénom est requis.")
+        @NotBlank(message = "Le prénom est requis.")
+        @Size(max = 50,message = "Le prénom ne doit pas dépasser 50 caractères.")
         String firstname,
 
-        @NotNull
-        @NotBlank
-        @Size(max = 50)
+        @NotNull(message = "Le nom est requis.")
+        @NotBlank(message = "Le nom est requis.")
+        @Size(max = 50,message = "Le nom ne doit pas dépasser 50 caractères.")
         String lastname,
 
-        @NotNull
-        @NotBlank
-        @Email
-        @Size(max = 150)
+        @NotNull(message = "L'email est requis.")
+        @NotBlank(message = "L'email est requis.")
+        @Size(max = 150,message = "L'email ne doit pas dépasser 150 caractères.")
+        @Email(message = "Le format de l'email n'est pas valide.")
         String email,
 
-        @NotNull
-        @NotBlank
+        @NotNull(message = "Le mot de passe est requis.")
+        @NotBlank(message = "Le mot de passe est requis.")
         String password,
 
-        @NotNull
+        @NotNull(message = "Le genre est requis.")
         UserGender gender
 ) {
 
